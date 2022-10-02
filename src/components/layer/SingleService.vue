@@ -14,7 +14,7 @@ import BaseLinks from "@/components/ui/BaseLinks";
           :key="service.key"
           :title="(services[service.key]) ? $t('allowed') : $t('denied')"
           :activated="services[service.key]"
-          @clicked="() => toggleService(service.key)" />
+          @change="(val) => setService(service.key, val)" />
       <div v-else class="cookiesjsr-service--always-on"><span v-trans>alwaysActive</span></div>
     </div>
   </li>
@@ -37,9 +37,11 @@ export default {
     }
   },
   methods: {
-    toggleService(service) {
-      console.log('toggleService#', this.services, service)
-      this.$store.dispatch('toggleService', { service: service })
+    setService(service, val) {
+      this.$store.dispatch('setService', {
+        service: service,
+        value: val,
+      })
     },
   }
 }

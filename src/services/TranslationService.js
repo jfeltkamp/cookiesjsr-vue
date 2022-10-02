@@ -1,12 +1,12 @@
 /* eslint-disable */
-import { drupalSettings } from "@/services/DrupalService";
+import configService from "@/services/ConfigService";
 
 class TranslationService {
   /**
    * Set translation object.
    */
   constructor() {
-    this.translation = drupalSettings.cookiesjsr.translation;
+    this.translation = configService.get('translation', {});
   }
 
   /**
@@ -21,6 +21,7 @@ class TranslationService {
       case 'object':
         return this.translation[q];
       default:
+        // console.log('#TRANS:query', q);
         let frag = this.resolve(q);
         return (typeof frag !== 'undefined') ? frag : this.readable(q);
     }

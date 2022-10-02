@@ -6,7 +6,7 @@ import BaseLinks from "@/components/ui/BaseLinks";
 <template>
   <li :class="['cookiesjsr-service', 'group-'+gid]">
     <div class="cookiesjsr-service--description">
-      <h3>{{ title }}</h3>
+      <h3 v-trans>{{ header }}</h3>
       <BaseLinks :links="links" class="cookiesjsr-service--links" direction="row"/>
     </div>
     <div class="cookiesjsr-service--action">
@@ -23,7 +23,7 @@ import BaseLinks from "@/components/ui/BaseLinks";
 import { mapGetters } from "vuex";
 
 export default {
-  props: ['gid'],
+  props: ['gid', 'title'],
   data() {
     return {
       groupServices: '',
@@ -31,7 +31,7 @@ export default {
   },
   computed: {
     ...mapGetters(['services', 'cookieDocs', 'serviceGroups']),
-    title() {
+    header() {
       return (this.gid === 'default')
           ? this.$t('requiredCookies')
           : this.title;
@@ -72,20 +72,14 @@ export default {
     }
   },
   methods: {
-    setAllServices: (services) => {
-      this.$store.dispatch('setAllServices', { services: services })
-    },
     setConsent(val) {
-      const enabled = !(this.groupIsEnabled);
       let services = {...this.services};
-      console.log('setConsent-', {...this.services}, val)
       for (let service_def of this.getGroupServices) {
         if (service_def['needConsent']) {
-          services[service_def['key']] = enabled;
+          services[service_def['key']] = val;
         }
       }
-      console.log('setConsent-', services, val)
-      this.setAllServices(services);
+      this.$store.dispatch('setMultipleServices', services)
     }
   }
 }

@@ -5,7 +5,7 @@ import axios from '../axios-content';
 class CookieService {
 
   constructor() {
-    const config = drupalSettings.coockiesjsr.config;
+    const config = drupalSettings.config;
     this.cookieName = config.name;
     this.expires = (typeof config.expires !== 'undefined')
       ? parseInt(config.expires, 10) : 2592000000; // 30*24*60*60=2592000 = 1 month

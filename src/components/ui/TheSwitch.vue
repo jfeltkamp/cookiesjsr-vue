@@ -13,7 +13,6 @@ export default {
   props: ['activated', 'title'],
   methods: {
     changed(e) {
-      console.log('##ev', e.target.checked);
       this.$emit('change', e.target.checked)
     }
   }

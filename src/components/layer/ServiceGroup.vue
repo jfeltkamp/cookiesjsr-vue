@@ -6,11 +6,11 @@ import GroupConsent from "@/components/layer/GroupConsent";
 <template>
   <li :class="['cookiesjsr-service-group', (id === activeGroup) ? 'active': '']">
     <div class="cookiesjsr-service-group--tab"
-         @click.prevent="() => setActiveGroup(id)">{{ $t(id + '.title') }}</div>
+         @click.prevent="() => setActiveGroup(id)" v-trans>{{ id + '.title' }}</div>
     <div class="cookiesjsr-service-group--content">
-      <div class="cookiesjsr-service-group--intro" v-trans>{{ $t(id + '.title') }}</div>
+      <div class="cookiesjsr-service-group--intro" v-trans>{{ id + '.details' }}</div>
       <ul class="cookiesjsr-service-group--services">
-        <GroupConsent v-if="groupConsent" :key="id" :gid="id" :title="$t(id + '.title')" />
+        <GroupConsent v-if="groupConsent" :key="id" :gid="id" :title="id + '.title'" />
         <SingleService v-else v-for="service in services" :key="service.key" :service="service"/>
       </ul>
     </div>

@@ -21,6 +21,9 @@ class ConfigService {
    *   Returns config[name], false or fallback if fallback is set as param.
    */
   get = (name, fallback) => {
+    if (name === '') {
+      return this.config;
+    }
     switch (typeof this.config[name]) {
       case 'string':
       case 'object':
@@ -42,9 +45,12 @@ class ConfigService {
    *   Resolved content of string query.
    */
   resolve = (path, separator='.') => {
+    // console.log('#ConfigService::resolve', path)
     let properties = path.split(separator);
     return properties.reduce((prev, curr) => prev && prev[curr], this.config)
   }
 }
 
-export default ConfigService;
+const CS = new ConfigService(drupalSettings);
+
+export default CS;

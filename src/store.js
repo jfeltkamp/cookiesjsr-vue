@@ -1,46 +1,52 @@
 import { createStore } from 'vuex';
-import { drupalSettings } from '@/services/DrupalService'
+import conf from "./services/ConfigService";
 
 export default createStore({
     state() {
-        console.log('DATA: ', drupalSettings.cookiesjsr);
+        console.log('DATA: ', conf.get('', 'NO VALUE RECEIVED'));
+        console.log('TRY: ', conf.get('config.interface.cookieDocs', 'NO VALUE RECEIVED'));
         return {
-            defaultLang: 'en',
-            cookieName: 'cookiesjsr',
-            openSettingsHash: '#cookiesjsr',
-            layerOpen: false,
-            showDenyAll: true,
-            bannerVisible: true,
-            settingsAsLink: false,
-            services: [],
-            serviceGroups: drupalSettings.cookiesjsr.services,
             activeGroup: 'default',
-            groupConsent: true,
+            bannerVisible: true,
+            cookieDocs: conf.get('config.interface.cookieDocs',true),
+            cookieName: conf.get('config.cookie.name','cookiesjsr'),
             cookieService: null,
-            cookieDocs: true
+            defaultLang: conf.get('config.interface.defaultLang','en'),
+            denyAllOnLayerClose: conf.get('config.interface.denyAllOnLayerClose',false),
+            groupConsent: conf.get('config.interface.groupConsent',true),
+            layerOpen: false,
+            openSettingsHash: conf.get('config.interface.openSettingsHash','#cookiesjsr'),
+            serviceGroups: conf.get('services', {}),
+            services: [],
+            settingsAsLink: conf.get('config.interface.settingsAsLink',false),
+            showDenyAll: conf.get('config.interface.showDenyAll', true),
         }
     },
     getters: {
-        cookieName: (state) => state.cookieName,
-        showDenyAll: (state) => state.showDenyAll,
+        activeGroup: (state) => state.activeGroup,
         bannerVisible: (state) => state.bannerVisible,
         cookieDocs: (state) => state.cookieDocs,
-        settingsAsLink: (state) => state.settingsAsLink,
-        openSettingsHash: (state) => state.openSettingsHash,
-        services: (state) => state.services,
-        serviceGroups: (state) => state.serviceGroups,
+        cookieName: (state) => state.cookieName,
+        denyAllOnLayerClose: (state) => state.denyAllOnLayerClose,
         groupConsent: (state) => state.groupConsent,
-        activeGroup: (state) => state.activeGroup,
+        openSettingsHash: (state) => state.openSettingsHash,
+        serviceGroups: (state) => state.serviceGroups,
+        services: (state) => state.services,
+        settingsAsLink: (state) => state.settingsAsLink,
+        showDenyAll: (state) => state.showDenyAll,
     },
     mutations: {
-        layerToggle(state, payload) { state.layerOpen = payload.open },
         bannerToggle(state, payload) { state.bannerVisible = payload.open },
-        setAllServices(state, payload) {
-            console.log('#pup payload', payload);
-        },
+        layerToggle(state, payload) { state.layerOpen = payload.open },
         setActiveGroup(state, payload) {
             state.activeGroup = payload.activeGroup;
         },
+        setAllServices(state, payload) {
+            console.log('#pup payload', payload);
+        },
+        setService(state, payload) {
+            state.services[payload.service] = payload.value;
+        }
     },
     actions: {
         layerOpen(context) {context.commit('layerToggle', {open: true})},
@@ -52,6 +58,18 @@ export default createStore({
         },
         setActiveGroup(context, payload) {
             context.commit('setActiveGroup', payload)
+        },
+        setService(context, payload) {
+            context.commit('setService', payload)
+        },
+        setMultipleServices(context, payload) {
+            console.log(payload);
+            for (const [key, value] of Object.entries(payload)) {
+                context.commit('setService', {
+                    service: key,
+                    value: value
+                })
+            }
         }
     }
 });

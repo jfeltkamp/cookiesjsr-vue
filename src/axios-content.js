@@ -1,9 +1,8 @@
 import axios from 'axios';
-import Config from "./services/ConfigService";
+import configService from "./services/ConfigService";
 
-const conf = new Config(document.cookiesjsr);
 const instance = axios.create({
-  baseURL: conf.get('apiUrl', '/')
+  baseURL: configService.get('apiUrl', '/')
 });
 
 export default instance;

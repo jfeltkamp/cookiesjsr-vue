@@ -1,3 +1,10 @@
+/**
+ * Service connects drupalSettings saved as JSON in drupal source code.
+ * As default Drupal already has prepared a JS object from the JSON, but
+ * if not (as here in a simulated environment) the constructor builds
+ * an object built directly from JSON.
+ */
+
 class DrupalService {
 
     constructor() {
@@ -26,8 +33,12 @@ class DrupalService {
         return this.drupal;
     }
 
-    getDrupalSettings() {
-        return this.drupalSettings;
+    getDrupalSettings(section) {
+        if (typeof this.drupalSettings[section] !== 'undefined') {
+            return this.drupalSettings[section];
+        } else {
+            return {}
+        }
     }
 
     getOnce() {
@@ -43,143 +54,134 @@ class DrupalService {
      * /
      updateJson() {
         const conf = {
-            votejsr: {
-                permissions: [
-                    'vjsr show voting stats',
-                    'vjsr show voting stats before voted',
-                    'vjsr add own votes',
-                    'vjsr edit own votes',
-                    'vjsr remove own votes',
-                ],
-                votingTypes: {
-                    quality: {
-                        id: 'quality',
-                        label: 'Qualität',
-                        base_type: 'five_star',
-                        question: 'Qualität des Artikels',
-                        description: 'Qualität bezüglich der Richtigkeit und Belegtheit der Informationen',
-                        color: '#696',
-                        condensed_format: '%result/5',
-                        result_format: 'Stars: %result/5.',
-                        extra_class: 'my-quality',
-                        value_definition: {
-                            points_5: 5,
-                            points_4: 4,
-                            points_3: 3,
-                            points_2: 2,
-                            points_1: 1,
-                        },
-                        labels: {
-                            points_5: '5',
-                            points_4: '4',
-                            points_3: '3',
-                            points_2: '2',
-                            points_1: '1',
-                        },
-                        rating_factor: 1,
-                        icon_family: '',
-                        icon: 'quality'
-                    },
-                    ratify: {
-                        id: 'ratify',
-                        label: 'Publish',
-                        base_type: 'yes_no',
-                        question: 'Soll der Artikel veröffentlicht werden?',
-                        description: '',
-                        color: '#669',
-                        extra_class: 'my-ratify',
-                        value_definition: {
-                            points_1: 1,
-                            points_0: 0,
-                            points_n1: -1,
-                        },
-                        labels: {
-                            points_1: 'Yes',
-                            points_n1: 'No'
-                        },
-                        rating_factor: 2,
-                        icon_family: '',
-                        icon: 'helped'
-                    },
-                    understandable: {
-                        id: 'understandable',
-                        label: 'Verstehbarkeit',
-                        base_type: 'buttons',
-                        question: 'Ist der Artikel verständlich?',
-                        description: '',
-                        color: '#669',
-                        extra_class: 'my-understandable',
-                        value_definition: {
-                            points_n2: -2,
-                            points_n1: -1,
-                            points_0: 0,
-                            points_1: 1,
-                            points_2: 2,
-                        },
-                        labels: {
-                            points_n2: 'Nein',
-                            points_n1: 'Eher nein',
-                            points_0: 'Weiß nicht',
-                            points_1: 'Eher ja',
-                            points_2: 'Ja',
-                        },
-                        rating_factor: 2,
-                        icon_family: '',
-                        icon: 'understandable'
-                    },
-                    correct: {
-                        id: 'correct',
-                        label: 'Korrektheit',
-                        base_type: 'yes_no',
-                        question: 'Sind die Angaben korrekt?',
-                        description: '',
-                        color: '#696',
-                        extra_class: 'my-correct',
-                        value_definition: {
-                            points_1: 1,
-                            points_n1: -1,
-                            points_0: 0
-                        },
-                        labels: {
-                            points_1: 'Yes',
-                            points_n1: 'No',
-                            points_0: 'Abstain'
-                        },
-                        allow_abstention: true,
-                        rating_factor: 1,
-                        icon_family: '',
-                        icon: 'correct'
-                    },
-                },
+            path: {
+                baseUrl: "/",
+                scriptPath: null,
+                pathPrefix: "",
+                currentPath: "user/login",
+                currentPathIsAdmin: false,
+                isFront: true,
+                currentLanguage: "en"
+            },
+            pluralDelimiter: "\u0003",
+            suppressDeprecationErrors: true,
+            cookiesjsr: {
                 config: {
-                    entity_vote_map: {
-                        node: {
-                            article: ['quality', 'ratify'],
-                            page: ['correct', 'understandable']
-                        }
+                    cookie: {name: "cookiesjsr", expires: 31536000000, domain: "", sameSite: "Lax", secure: false},
+                    library: {
+                        libBasePath: "https://cdn.jsdelivr.net/gh/jfeltkamp/cookiesjsr@1/dist",
+                        libPath: "https://cdn.jsdelivr.net/gh/jfeltkamp/cookiesjsr@1/dist/cookiesjsr.min.js",
+                        scrollLimit: 0
                     },
-                    api: {
-                        request_options: {
-                            method: 'GET',
-                            headers: {
-                                'Accept': 'application/json',
-                                'Content-Type': 'application/json'
-                            }
-                        },
-                        results: '/vote/vote-results.json',
-                        vote: '/vote/vote/{entity_type_id}/{entity_id}.json',
+                    callback: {method: "post", url: "/cookies/consent/callback.json", headers: []},
+                    interface: {
+                        openSettingsHash: "#editCookieSettings",
+                        showDenyAll: true,
+                        denyAllOnLayerClose: false,
+                        settingsAsLink: false,
+                        availableLangs: ["en"],
+                        defaultLang: "en",
+                        groupConsent: true,
+                        cookieDocs: true
+                    }
+                }, services: {
+                    default: {
+                        id: "default", services: [{
+                            key: "base", type: "default", name: "Required cookies", info: {
+                                value: "<table>\r\n\t<thead>\r\n\t\t<tr>\r\n\t\t\t<th width=\"15%\">Cookie name</th>\r\n\t\t\t<th width=\"15%\">Default expiration time</th>\r\n\t\t\t<th>Description</th>\r\n\t\t</tr>\r\n\t</thead>\r\n\t<tbody>\r\n\t\t<tr>\r\n\t\t\t<td><code dir=\"ltr\" translate=\"no\">SSESS&lt;ID&gt;</code></td>\r\n\t\t\t<td>1 month</td>\r\n\t\t\t<td>If you are logged in to this website, a session cookie is required to identify and connect your browser to your user account in the server backend of this website.</td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td><code dir=\"ltr\" translate=\"no\">cookiesjsr</code></td>\r\n\t\t\t<td>1 year</td>\r\n\t\t\t<td>When you visited this website for the first time, you were asked for your permission to use several services (including those from third parties) that require data to be saved in your browser (cookies, local storage). Your decisions about each service (allow, deny) are stored in this cookie and are reused each time you visit this website.</td>\r\n\t\t</tr>\r\n\t</tbody>\r\n</table>\r\n",
+                                format: "full_html"
+                            }, uri: "", needConsent: false
+                        }], weight: 1
                     },
-                    icons: {
-                        default_sprite: '/svg/ico.svg'
+                    tracking: {
+                        id: "tracking",
+                        services: [{
+                            key: "analytics",
+                            type: "tracking",
+                            name: "Google Analytics",
+                            info: {format: "full_html", value: ""},
+                            uri: "https://support.google.com/analytics/answer/6004245",
+                            needConsent: true
+                        }, {
+                            key: "ivw",
+                            type: "tracking",
+                            name: "IVW Tracking",
+                            info: {format: "full_html", value: ""},
+                            uri: "https://www.ivw.eu/digital/datenschutz-0",
+                            needConsent: true
+                        }],
+                        weight: 10
                     },
-                    button_types: {
-                        default: 'btn btn-primary',
-                        primary: 'btn btn-primary btn-sm',
-                        secondary: 'btn btn-secondary btn-sm',
-                        tertiary: 'btn btn-outline-primary btn-sm'
+                    social: {
+                        id: "social",
+                        services: [{
+                            key: "instagram",
+                            type: "social",
+                            name: "Instagram",
+                            info: {format: "full_html", value: ""},
+                            uri: "https://help.instagram.com/196883487377501",
+                            needConsent: true
+                        }],
+                        weight: 20
+                    },
+                    video: {
+                        id: "video",
+                        services: [{
+                            key: "video",
+                            type: "video",
+                            name: "Video provided by YouTube, Vimeo",
+                            info: {format: "full_html", value: ""},
+                            uri: "https://policies.google.com/privacy",
+                            needConsent: true
+                        }],
+                        weight: 40
+                    }
+                }, translation: {
+                    _core: {default_config_hash: "r0JMDv27tTPrhzD4ypdLS0Jijl0-ccTUdlBkqvbAa8A"},
+                    langcode: "en",
+                    default_langcode: "en",
+                    bannerText: "We use a selection of our own and third-party cookies on the pages of this website: Essential cookies, which are required in order to use the website; functional cookies, which provide better easy of use when using the website; performance cookies, which we use to generate aggregated data on website use and statistics; and marketing cookies, which are used to display relevant content and advertising. If you choose \"ACCEPT ALL\", you consent to the use of all cookies. You can accept and reject individual cookie types and  revoke your consent for the future at any time under \"Settings\".",
+                    privacyPolicy: "Privacy policy",
+                    privacyUri: "",
+                    imprint: "Imprint",
+                    imprintUri: "",
+                    cookieDocs: "Cookie documentation",
+                    cookieDocsUri: "/cookies/documentation",
+                    denyAll: "Deny all",
+                    settings: "Cookie settings",
+                    acceptAll: "Accept all",
+                    allowAll: "Accept all",
+                    cookieSettings: "Cookie settings",
+                    close: "Close",
+                    officialWebsite: "View official website",
+                    requiredCookies: "Required cookies",
+                    readMore: "Read more",
+                    allowed: "allowed",
+                    denied: "denied",
+                    alwaysActive: "Always active",
+                    settingsAllServices: "Settings for all services",
+                    saveSettings: "Save",
+                    credit: "",
+                    default: {
+                        title: "What are Cookies?",
+                        details: "Cookies are small text files that are placed by your browser on your device in order to store certain information. Using the information that is stored and returned, a website can recognize that you have previously accessed and visited it using the browser on your end device. We use this information to arrange and display the website optimally in accordance with your preferences. Within this process, only the cookie itself is identified on your device. Personal data is only stored following your express consent or where this is absolutely necessary to enable use the service provided by us and accessed by you."
+                    },
+                    tracking: {
+                        title: "Tracking cookies",
+                        details: "Marketing cookies come from external advertising companies (\"third-party cookies\") and are used to collect information about the websites visited by the user. The purpose of this is to create and display target group-oriented content and advertising for the user."
+                    },
+                    social: {
+                        title: "Social Plugins",
+                        details: "Comments managers facilitate the filing of comments and fight against spam."
+                    },
+                    video: {
+                        title: "Video",
+                        details: "Video sharing services help to add rich media on the site and increase its visibility."
                     }
                 }
-            }
+            },
+            ajaxTrustedUrl: {"form_action_p_pvdeGsVG5zNF_XLGPTvYSKCf43t8qZYSwcfZl2uzM": true},
+            user: {uid: 0, permissionsHash: "37983621aa9b3094abd523c08f6a38798d440d6c3fb9a92e29714d3adde48d25"}
         };
 
         console.log("DON'T FORGET TO COMMENT IN THE updateJson() FUNCTION.")
@@ -204,6 +206,6 @@ if (typeof drupalService['updateJson'] === 'function') {
 }
 
 export const Drupal = drupalService.getDrupal();
-export const drupalSettings = drupalService.getDrupalSettings();
+export const drupalSettings = drupalService.getDrupalSettings('cookiesjsr');
 export const once = drupalService.getOnce();
 export const simulated = drupalService.getSimulated();
