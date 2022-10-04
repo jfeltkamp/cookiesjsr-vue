@@ -5,7 +5,7 @@ import ServiceGroups from "@/components/layer/ServiceGroups";
 </script>
 
 <template>
-  <div class="cookiesjsr-layer--wrapper">
+  <div v-if="layerOpen" class="cookiesjsr-layer--wrapper">
     <div class="cookiesjsr-layer--overlay" :title="$t('close')" @click.prevent="() => this.props.closeLayer()" />
     <div class="cookiesjsr-layer">
       <header class="cookiesjsr-layer--header">
@@ -31,7 +31,7 @@ import ServiceGroups from "@/components/layer/ServiceGroups";
 import { mapGetters } from 'vuex';
 export default {
   computed: {
-    ...mapGetters(['showDenyAll'])
+    ...mapGetters(['showDenyAll', 'layerOpen'])
   }
 }
 </script>

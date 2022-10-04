@@ -1,19 +1,22 @@
 /* eslint-disable */
-import { drupalSettings } from "@/services/DrupalService";
+import conf from "@/services/ConfigService";
 import axios from '../axios-content';
 
-class CookieService {
+class StoreCookieService {
 
   constructor() {
-    const config = drupalSettings.config;
-    this.cookieName = config.name;
-    this.expires = (typeof config.expires !== 'undefined')
-      ? parseInt(config.expires, 10) : 2592000000; // 30*24*60*60=2592000 = 1 month
-    this.secure = (typeof config.secure === 'boolean' && config.secure) ? "; Secure=true" : "";
-    this.sameSite = (typeof config.sameSite === 'string' && config.sameSite)
-      ? "; SameSite=" + config.sameSite : "; SameSite=None";
-    this.domain = (typeof config.domain === 'string' && config.domain) ? " domain=" + config.domain + ';' : "";
-    this.callback = (typeof config.callback === 'object') ? config.callback : {};
+    // console.log('CookieService: ', conf.get('config.callback'));
+    this.cookieName = conf.get('config.cookie.name', 'cookiesjsr');
+    this.expires = conf.get('config.cookie.expires',2592000000); // 30*24*60*60=2592000 = 1 month
+    this.secure = (conf.get('config.cookie.secure', false)) ? "; Secure=true" : "";
+
+    const sameSite = conf.get('config.cookie.sameSite', 'Lax')
+    this.sameSite = "; SameSite=" + sameSite;
+
+    const domain = conf.get('config.cookie.domain', '')
+    this.domain = (domain) ? " domain=" + domain + ';' : "";
+
+    this.callback = conf.get('config.callback', {});
   }
 
   /**
@@ -140,6 +143,6 @@ class CookieService {
   }
 }
 
-const CS = new CookieService();
-export default CS;
+const SCS = new StoreCookieService();
+export default SCS;
 

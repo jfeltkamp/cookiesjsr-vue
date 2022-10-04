@@ -1,12 +1,12 @@
 /* eslint-disable */
-import configService from "@/services/ConfigService";
+import conf from "@/services/ConfigService";
 
 class TranslationService {
   /**
    * Set translation object.
    */
   constructor() {
-    this.translation = configService.get('translation', {});
+    this.translation = conf.get('translation', {}, 'object');
   }
 
   /**
@@ -52,4 +52,5 @@ class TranslationService {
   }
 }
 
-export default TranslationService;
+const TS = new TranslationService()
+export default TS;

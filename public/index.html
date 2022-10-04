@@ -6,12 +6,82 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
     <title><%= htmlWebpackPlugin.options.title %></title>
-      <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <style>
+      body .cookiesjsr {
+          --ci-blue: #004c93;
+          --ci-dark: #000f37;
+          --ci-light: #FFF;
+          --ci-bg-light: #e4e5e6;
+
+          --default-margin: 1.25rem;
+
+          --btn-font-color: #FFF;
+          --btn-border-color: #FFF;
+          --btn-bg-color: #004c93;
+
+          --banner-logo-offset: 100px;
+          --banner-bg-color: #004c93;
+          --banner-font-color: #FFF;
+          --banner-link-font-color: #FFF;
+          --banner-btn-font-color: #FFF;
+          --banner-btn-border-color: #FFF;
+          --banner-btn-bg-color: #004c93;
+
+          --layer-bg-light: #FFF;
+          --layer-bg-dark: #004c93;
+          --layer-font-light: #FFF;
+          --layer-font-dark: #000f37;
+          --layer-border-color: #e4e5e6;
+          --layer-title-color: #000f37;
+          --layer-header-height: 3.5rem;
+          --layer-footer-height: 4.5rem;
+
+          --switch-border-color: #e4e5e6;
+          --switch-handle-color: #FFF;
+          --switch-bg-off: #FFF;
+          --switch-bg-on: #00AA00;
+          --switch-width: 45px;
+          --switch-height: 20px;
+      }
+    </style>
+
   </head>
   <body>
     <noscript>
       <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
     </noscript>
+
+    <div class="container">
+        <a href="#editCookieSettings">Open cookie settings by Hash</a>
+
+        <h3>En-/disable All</h3>
+        <div class="row">
+            <div class="col-md-6 all plugin" id="all">
+                <a href="#enableAll" id="enableAll">Enable all</a><br />
+                <a href="#disableAll" id="disableAll">Disable all</a>
+            </div>
+        </div>
+
+        <h3>En-/Disable Groups</h3>
+        <div class="row">
+            <div class="col-md-6 analytic plugin" id="analytic">
+                <a href="#enableAnalytic" id="enableAnalytic">Enable group Analytic</a><br />
+                <a href="#disableAnalytic" id="disableAnalytic">Disable group Analytic</a>
+            </div>
+        </div>
+
+        <h3>Plugins</h3>
+        <div class="row">
+            <div class="col-md-6 analytics plugin" id="analytics"></div>
+            <div class="col-md-6 gtag plugin" id="gtag"></div>
+            <div class="col-md-6 facebook plugin" id="facebook"></div>
+            <div class="col-md-6 youtube plugin" id="youtube"></div>
+        </div>
+
+    </div>
+    <script type="application/javascript" src="<%= BASE_URL %>js/gdpr-listener.js"></script>
     <div id="app"></div>
     <!-- built files will be auto injected -->
     <script type="application/json" data-drupal-selector="drupal-settings-json">{"path":{"baseUrl":"\/","scriptPath":null,"pathPrefix":"","currentPath":"user\/login","currentPathIsAdmin":false,"isFront":true,"currentLanguage":"en"},"pluralDelimiter":"\u0003","suppressDeprecationErrors":true,"cookiesjsr":{"config":{"cookie":{"name":"cookiesjsr","expires":31536000000,"domain":"","sameSite":"Lax","secure":false},"library":{"libBasePath":"https:\/\/cdn.jsdelivr.net\/gh\/jfeltkamp\/cookiesjsr@1\/dist","libPath":"https:\/\/cdn.jsdelivr.net\/gh\/jfeltkamp\/cookiesjsr@1\/dist\/cookiesjsr.min.js","scrollLimit":0},"callback":{"method":"post","url":"\/cookies\/consent\/callback.json","headers":[]},"interface":{"openSettingsHash":"#editCookieSettings","showDenyAll":true,"denyAllOnLayerClose":false,"settingsAsLink":false,"availableLangs":["en"],"defaultLang":"en","groupConsent":true,"cookieDocs":true}},"services":{"default":{"id":"default","services":[{"key":"base","type":"default","name":"Required cookies","info":{"value":"\u003Ctable\u003E\r\n\t\u003Cthead\u003E\r\n\t\t\u003Ctr\u003E\r\n\t\t\t\u003Cth width=\u002215%\u0022\u003ECookie name\u003C\/th\u003E\r\n\t\t\t\u003Cth width=\u002215%\u0022\u003EDefault expiration time\u003C\/th\u003E\r\n\t\t\t\u003Cth\u003EDescription\u003C\/th\u003E\r\n\t\t\u003C\/tr\u003E\r\n\t\u003C\/thead\u003E\r\n\t\u003Ctbody\u003E\r\n\t\t\u003Ctr\u003E\r\n\t\t\t\u003Ctd\u003E\u003Ccode dir=\u0022ltr\u0022 translate=\u0022no\u0022\u003ESSESS\u0026lt;ID\u0026gt;\u003C\/code\u003E\u003C\/td\u003E\r\n\t\t\t\u003Ctd\u003E1 month\u003C\/td\u003E\r\n\t\t\t\u003Ctd\u003EIf you are logged in to this website, a session cookie is required to identify and connect your browser to your user account in the server backend of this website.\u003C\/td\u003E\r\n\t\t\u003C\/tr\u003E\r\n\t\t\u003Ctr\u003E\r\n\t\t\t\u003Ctd\u003E\u003Ccode dir=\u0022ltr\u0022 translate=\u0022no\u0022\u003Ecookiesjsr\u003C\/code\u003E\u003C\/td\u003E\r\n\t\t\t\u003Ctd\u003E1 year\u003C\/td\u003E\r\n\t\t\t\u003Ctd\u003EWhen you visited this website for the first time, you were asked for your permission to use several services (including those from third parties) that require data to be saved in your browser (cookies, local storage). Your decisions about each service (allow, deny) are stored in this cookie and are reused each time you visit this website.\u003C\/td\u003E\r\n\t\t\u003C\/tr\u003E\r\n\t\u003C\/tbody\u003E\r\n\u003C\/table\u003E\r\n","format":"full_html"},"uri":"","needConsent":false}],"weight":1},"tracking":{"id":"tracking","services":[{"key":"analytics","type":"tracking","name":"Google Analytics","info":{"format":"full_html","value":""},"uri":"https:\/\/support.google.com\/analytics\/answer\/6004245","needConsent":true},{"key":"ivw","type":"tracking","name":"IVW Tracking","info":{"format":"full_html","value":""},"uri":"https:\/\/www.ivw.eu\/digital\/datenschutz-0","needConsent":true}],"weight":10},"social":{"id":"social","services":[{"key":"instagram","type":"social","name":"Instagram","info":{"format":"full_html","value":""},"uri":"https:\/\/help.instagram.com\/196883487377501","needConsent":true}],"weight":20},"video":{"id":"video","services":[{"key":"video","type":"video","name":"Video provided by YouTube, Vimeo","info":{"format":"full_html","value":""},"uri":"https:\/\/policies.google.com\/privacy","needConsent":true}],"weight":40}},"translation":{"_core":{"default_config_hash":"r0JMDv27tTPrhzD4ypdLS0Jijl0-ccTUdlBkqvbAa8A"},"langcode":"en","default_langcode":"en","bannerText":"We use a selection of our own and third-party cookies on the pages of this website: Essential cookies, which are required in order to use the website; functional cookies, which provide better easy of use when using the website; performance cookies, which we use to generate aggregated data on website use and statistics; and marketing cookies, which are used to display relevant content and advertising. If you choose \u0022ACCEPT ALL\u0022, you consent to the use of all cookies. You can accept and reject individual cookie types and  revoke your consent for the future at any time under \u0022Settings\u0022.","privacyPolicy":"Privacy policy","privacyUri":"","imprint":"Imprint","imprintUri":"","cookieDocs":"Cookie documentation","cookieDocsUri":"\/cookies\/documentation","denyAll":"Deny all","settings":"Cookie settings","acceptAll":"Accept all","allowAll":"Accept all","cookieSettings":"Cookie settings","close":"Close","officialWebsite":"View official website","requiredCookies":"Required cookies","readMore":"Read more","allowed":"allowed","denied":"denied","alwaysActive":"Always active","settingsAllServices":"Settings for all services","saveSettings":"Save","credit":"","default":{"title":"What are Cookies?","details":"Cookies are small text files that are placed by your browser on your device in order to store certain information. Using the information that is stored and returned, a website can recognize that you have previously accessed and visited it using the browser on your end device. We use this information to arrange and display the website optimally in accordance with your preferences. Within this process, only the cookie itself is identified on your device. Personal data is only stored following your express consent or where this is absolutely necessary to enable use the service provided by us and accessed by you."},"tracking":{"title":"Tracking cookies","details":"Marketing cookies come from external advertising companies (\u0022third-party cookies\u0022) and are used to collect information about the websites visited by the user. The purpose of this is to create and display target group-oriented content and advertising for the user."},"social":{"title":"Social Plugins","details":"Comments managers facilitate the filing of comments and fight against spam."},"video":{"title":"Video","details":"Video sharing services help to add rich media on the site and increase its visibility."}}},"ajaxTrustedUrl":{"form_action_p_pvdeGsVG5zNF_XLGPTvYSKCf43t8qZYSwcfZl2uzM":true},"user":{"uid":0,"permissionsHash":"37983621aa9b3094abd523c08f6a38798d440d6c3fb9a92e29714d3adde48d25"}}</script>
