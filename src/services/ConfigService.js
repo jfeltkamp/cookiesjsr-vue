@@ -17,16 +17,15 @@ class ConfigService {
    *   Name or object query path of config.
    *
    * @param fallback {*}
-   *   Fallback to return if no config found or if type of return value
+   *   Fallback to return IF requested config not found OR IF type of return value
    *   differs from type of fallback.
    *
    * @returns {*}
-   *   Returns requested config or null.
-   *   If fallback IS defined and requested config IS NOT defined, method returns
+   *   Returns requested config or null, if fallback not set.
+   *   If fallback IS set and requested config IS NOT defined, method returns
    *   fallback.
-   *   If requested config AND fallback IS defined, the data types of both must be equal
+   *   If requested config AND fallback IS defined, data types of both must be equal
    *   => if EQUAL method returns requested config, if NOT EQUAL returns fallback.
-   *   false or fallback if fallback is set as param.
    */
   get = (name, fallback = null) => {
     if (name === '') {
@@ -68,5 +67,4 @@ class ConfigService {
 }
 
 const CS = new ConfigService(drupalSettings);
-
 export default CS;

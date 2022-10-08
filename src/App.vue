@@ -10,13 +10,3 @@ import TheLayer from '@/components/TheLayer';
   </div>
 </template>
 
-<script>
-
-export default {
-  components: {},
-  data() {
-    return {};
-  },
-  methods: {}
-};
-</script>

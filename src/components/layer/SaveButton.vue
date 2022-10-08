@@ -3,7 +3,7 @@ import BaseButton from '@/components/ui/BaseButton';
 </script>
 
 <template>
-    <BaseButton btnType="invert" @clicked="() => saveAndClose()">
+    <BaseButton btnType="invert" @click.prevent="saveAndClose">
       <slot/>
     </BaseButton>
 </template>
@@ -16,11 +16,11 @@ export default {
   },
   methods: {
     saveAndClose() {
+      this.$scs.setServices(this.services);
       this.$store.dispatch('setAllServices', {services: this.services});
       this.$store.dispatch('bannerClose');
       this.$store.dispatch('layerClose');
     }
   }
 };
-
 </script>
