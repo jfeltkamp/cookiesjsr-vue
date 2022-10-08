@@ -12,7 +12,7 @@ import BaseButton from '@/components/ui/BaseButton';
 import {mapGetters} from "vuex";
 export default {
   computed: {
-    ...mapGetters(['services', 'cookieName'])
+    ...mapGetters(['services'])
   },
   methods: {
     saveAndClose() {

@@ -28,8 +28,8 @@ function getLabel(id, status, services) {
 var actionLinks = {
   enableAll: {detail: { all: true }},
   disableAll: {detail: { all: false }},
-  enableAnalytic: {detail: {groups: { analytic: true }}},
-  disableAnalytic: {detail: {groups: { analytic: false }}}
+  enableAnalytic: {detail: {groups: { tracking: true }}},
+  disableAnalytic: {detail: {groups: { tracking: false }}}
 }
 
 for (var id in actionLinks) {

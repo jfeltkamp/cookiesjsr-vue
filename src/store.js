@@ -2,48 +2,20 @@ import { createStore } from 'vuex';
 import conf from "@/services/ConfigService";
 import scs from "@/services/StoreCookieService";
 
-// Extract services from group configuration.
-function extractServices(serviceGroups) {
-    let services = []; // Services list for user decisions.
-    for (let groupId in serviceGroups) {
-        let group = serviceGroups[groupId];
-        if (typeof group.services === 'object') {
-            // Hang services into the list for user decisions.
-            for (let srvc of group.services) {
-                if (typeof srvc.key === 'string') {
-                    services.push(srvc.key);
-                }
-            }
-        }
-    }
-    return services;
-}
 
 export default createStore({
     state() {
-        // console.log('TRY: ', conf.get('config.interface.cookieDocs', false));
-        // Prepare initial service config.
-        let serviceGroups = conf.get('services', {});
-        let services = extractServices(serviceGroups);
-
-        // Compare with store cookie, check if update required.
-        let valServices = scs.getActiveServices(services);
-        // Fire initial event.
-        scs.fireEvent(valServices.services);
-        let bannerVisible = valServices.updateRequired;
-
         return {
             activeGroup: 'default',
-            bannerVisible: bannerVisible,
+            bannerVisible: scs.isUpdateRequired(),
             cookieDocs: conf.get('config.interface.cookieDocs',true),
-            cookieName: conf.get('config.cookie.name','cookiesjsr'),
             defaultLang: conf.get('config.interface.defaultLang','en'),
             denyAllOnLayerClose: conf.get('config.interface.denyAllOnLayerClose',false),
             groupConsent: conf.get('config.interface.groupConsent',true),
             layerOpen: false,
             openSettingsHash: conf.get('config.interface.openSettingsHash','#cookiesjsr'),
-            serviceGroups: serviceGroups,
-            services: valServices.services,
+            serviceGroups: conf.getServiceGroups(),
+            services: scs.getServicesStatus(),
             settingsAsLink: conf.get('config.interface.settingsAsLink',false),
             showDenyAll: conf.get('config.interface.showDenyAll', true),
         }
@@ -52,7 +24,6 @@ export default createStore({
         activeGroup: (state) => state.activeGroup,
         bannerVisible: (state) => state.bannerVisible,
         cookieDocs: (state) => state.cookieDocs,
-        cookieName: (state) => state.cookieName,
         denyAllOnLayerClose: (state) => state.denyAllOnLayerClose,
         groupConsent: (state) => state.groupConsent,
         layerOpen: (state) => state.layerOpen,

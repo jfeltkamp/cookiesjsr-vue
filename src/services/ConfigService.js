@@ -64,6 +64,48 @@ class ConfigService {
     let properties = path.split(separator);
     return properties.reduce((prev, curr) => prev && prev[curr], this.config)
   }
+
+
+  /**
+   * Extract service ids from raw config data as prepared param for serviceActivationStatus.
+   *
+   * @returns {[]}
+   */
+  getServiceIds() {
+    const serviceGroups = this.get('services', {});
+    // Prepare group configuration.
+    let services = []; // Services list for user decisions.
+    for (let groupId in serviceGroups) {
+      let group = serviceGroups[groupId];
+      if (typeof group.services === 'object') {
+        // Hang services into the list for user decisions.
+        for (let srvcId in group.services) {
+          let srvc = group.services[srvcId];
+          if (typeof srvc.key === 'string') {
+            services.push(srvc.key);
+          }
+        }
+      }
+    }
+    return services;
+  }
+
+  /**
+   * Return Service groups.
+   *
+   * @returns {{}}
+   */
+  getServiceGroups() {
+    const groups = this.get('services', {});
+    let serviceGroups = {};
+    for (let groupId in groups) {
+      let group = groups[groupId];
+      if (typeof group.services === 'object') {
+        serviceGroups[groupId] = group;
+      }
+    }
+    return serviceGroups;
+  }
 }
 
 const CS = new ConfigService(drupalSettings);

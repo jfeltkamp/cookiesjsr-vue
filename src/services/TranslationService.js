@@ -46,9 +46,12 @@ class TranslationService {
    * @returns {*}
    *   Resolved content of string query.
    */
-  resolve = (path, separator='.') => {
+  resolve = (path, separator) => {
+    separator = (typeof separator === 'string' && separator) ? separator : '.';
     let properties = path.split(separator);
-    return properties.reduce((prev, curr) => prev && prev[curr], this.translation)
+    return properties.reduce(function (prev, curr) {
+      return prev && prev[curr];
+    }, this.translation);
   }
 }
 

@@ -5,18 +5,27 @@ import axios from '../axios-content';
 class StoreCookieService {
 
   constructor() {
-    // console.log('CookieService: ', conf.get('config.callback'));
-    this.cookieName = conf.get('config.cookie.name', 'cookiesjsr');
-    this.expires = conf.get('config.cookie.expires',2592000000); // 30*24*60*60=2592000 = 1 month
-    this.secure = (conf.get('config.cookie.secure', false)) ? "; Secure=true" : "";
+    this.servicesStatus = {};
+    this.updateRequired = false;
 
-    const sameSite = conf.get('config.cookie.sameSite', 'Lax')
-    this.sameSite = "; SameSite=" + sameSite;
+    this.receiveChangeEvents();
+    const services = this.serviceActivationStatus();
+    this.initialFireEvents(services)
+  }
 
-    const domain = conf.get('config.cookie.domain', '')
-    this.domain = (domain) ? " domain=" + domain + ';' : "";
+  /**
+   * Fires event three times (immediately, DOM ready, page loaded) to enable activate third-party services.
+   */
+  initialFireEvents(services) {
+    this.fireEvent(services);
 
-    this.callback = conf.get('config.callback', {});
+    const self = this;
+    document.addEventListener('DOMContentLoaded', function () {
+      self.fireEvent(services);
+    });
+    window.addEventListener('load', function() {
+      self.fireEvent(services);
+    });
   }
 
   /**
@@ -34,7 +43,6 @@ class StoreCookieService {
     document.dispatchEvent(new CustomEvent('cookiesjsrUserConsent', options))
   }
 
-
   /**
    * Get raw cookie value.
    *
@@ -42,7 +50,8 @@ class StoreCookieService {
    *   Raw cookie value.
    */
   getCookie() {
-    let b = document.cookie.match('(^|[^;]+)\\s*' + this.cookieName + '\\s*=\\s*([^;]+)');
+    const name = conf.get('config.cookie.name', 'cookiesjsr');
+    let b = document.cookie.match('(^|[^;]+)\\s*' + name + '\\s*=\\s*([^;]+)');
     return b ? b.pop() : '{}';
   }
 
@@ -56,16 +65,22 @@ class StoreCookieService {
     if (typeof services !== 'object') {
       return false;
     }
-    let serviceString = encodeURI(JSON.stringify(services));
-    let cookie = this.cookieName + '=' + serviceString;
+    let serviceString = encodeURIComponent(JSON.stringify(services));
+    const name = conf.get('config.cookie.name', 'cookiesjsr');
+    let cookie = name + '=' + serviceString;
 
     let date = new Date();
     let time = date.getTime();
-    let expireTime = time + this.expires;
+    const expires = conf.get('config.cookie.expires',2592000000); // 30*24*60*60=2592000 = 1 month
+    let expireTime = time + parseInt(expires, 10);
     date.setTime(expireTime);
 
-    document.cookie = cookie + '; expires=' + date.toUTCString() + this.secure
-      + this.sameSite + '; path=/;' + this.domain;
+    const secure = (conf.get('config.cookie.secure', true)) ? "; Secure=true" : "";
+    let sameSite = conf.get('config.cookie.sameSite', 'None')
+    sameSite = "; SameSite=" + sameSite;
+    let domain = conf.get('config.cookie.domain', '')
+    domain = (domain.length) ? " domain=" + domain + ';' : "";
+    document.cookie = cookie + '; expires=' + date.toUTCString() + secure + sameSite + '; path=/' + domain + ';';
   }
 
   /**
@@ -76,7 +91,7 @@ class StoreCookieService {
    */
   getServices() {
     let raw = this.getCookie();
-    return JSON.parse(decodeURI(raw));
+    return JSON.parse(decodeURIComponent(raw));
   }
 
   /**
@@ -88,6 +103,7 @@ class StoreCookieService {
     this.setCookie(services);
     this.fireEvent(services);
     this.sendCallback(services);
+    this.serviceActivationStatus();
   }
 
   /**
@@ -97,49 +113,122 @@ class StoreCookieService {
    *   Services with their activation setting.
    */
   sendCallback(services) {
-    let method = (typeof this.callback.method !== 'undefined')
-      ? this.callback.method.toUpperCase() : 'GET';
-    if (typeof this.callback.url === 'string') {
-      const url = this.callback.url;
-      const headers = (typeof this.callback.header === 'object') ? this.callback.header : {};
+    let method = conf.get('config.callback.method', 'GET');
+    method = method.toUpperCase();
+    const url = conf.get('config.callback.url', '');
+    if (url.length) {
+      const headers = conf.get('config.callback.headers', []);
 
       if (method === 'GET') {
-        axios.get(url, {params: services}).catch(err => { console.log(err); });
+        axios.get(url, {params: services}).catch(function(err) { console.log(err); });
       } else {
         axios({
           method: method,
           headers: headers,
           data: services,
           url,
-        }).catch( err => { console.log(err); });
+        }).then(function (response) {
+          try {
+            const options = {
+              bubbles: false,
+              detail: {
+                response: response.data
+              }
+            }
+            document.dispatchEvent(new CustomEvent('cookiesjsrCallbackResponse', options))
+          } catch(err) { console.log(err); }
+        }).catch( function(err) { console.log(err); });
       }
-
     }
   }
 
   /**
-   * Get a list of active services to be compared with service config
-   * from cookie.
-   *
-   * @param activeServicesIds {array}
+   * Takes user decisions to de-/activate all services, service groups or individual services and sends them on
+   * for storage in the cookie.
+   */
+  receiveChangeEvents() {
+    const self = this;
+    // Behavior Service activation: Catch event 'cookiesjsrSetService'.
+    document.addEventListener('cookiesjsrSetService', function (event) {
+      const input = event.detail;
+      let output = self.getServices();
+
+      // En- or disable ALL services.
+      if(typeof input.all === 'boolean') {
+        for (let srvc in self.servicesStatus) {
+          // Individual target weights more than fallback (group target, actual state).
+          output[srvc] = input.all;
+        }
+      }
+
+      // En- or disable complete groups.
+      if (typeof input.groups === 'object') {
+        const serviceGroups = conf.get('services', {});
+        for (let group in input.groups) {
+          let target = input.groups[group];
+          if (typeof serviceGroups[group] === 'object'
+              && typeof serviceGroups[group].services === 'object') {
+            for (let serviceDefId in serviceGroups[group].services) {
+              let serviceDef = serviceGroups[group].services[serviceDefId];
+              output[serviceDef.key] = target;
+            }
+          }
+        }
+      }
+
+      // En- or disable individual services (opt. overwrites group targets).
+      if (typeof input.services !== 'undefined') {
+        for (let service in self.servicesStatus) {
+          // Individual target weights more than fallback (group target, actual state).
+          output[service] = (typeof input.services[service] !== 'undefined')
+              ? input.services[service] : output[service];
+        }
+      }
+
+      self.setServices(output);
+    });
+  }
+
+
+  /**
+   * Loads all services that require approval from the configuration and compares them with those that are already
+   * stored in the cookie. If new services have been added, the updateRequired is set to true.
    *
    * @return {object}
    */
-  getActiveServices(activeServicesIds) {
-    let active = {
-      updateRequired: false,
-      services: {}
-    };
+  serviceActivationStatus() {
+    this.updateRequired = false;
     let cServices = this.getServices();
-    for (let id of activeServicesIds) {
+    const serviceIds = conf.getServiceIds()
+    for (let idPos in serviceIds) {
+      let id = serviceIds[idPos];
       if (typeof cServices[id] === 'undefined') {
-        active.services[id] = false;
-        active.updateRequired = true;
+        this.servicesStatus[id] = false;
+        this.updateRequired = true;
       } else {
-        active.services[id] = cServices[id];
+        this.servicesStatus[id] = cServices[id];
       }
     }
-    return active;
+    return this.servicesStatus;
+  }
+
+  /**
+   * Returns if an update of approval from user. (see comment this.serviceActivationStatus())
+   *
+   * @returns {boolean}
+   */
+  isUpdateRequired() {
+    return this.updateRequired;
+  }
+
+
+  /**
+   * Returns if an update of approval from user. (see comment this.serviceActivationStatus())
+   *
+   * @returns {boolean}
+   */
+  getServicesStatus() {
+    return this.servicesStatus;
   }
 }
 
