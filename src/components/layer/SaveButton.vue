@@ -3,7 +3,7 @@ import BaseButton from '@/components/ui/BaseButton';
 </script>
 
 <template>
-    <BaseButton btnType="invert" @click.prevent="saveAndClose">
+    <BaseButton btnType="invert important save dialog-last-tab" @click.prevent="saveAndClose">
       <slot/>
     </BaseButton>
 </template>

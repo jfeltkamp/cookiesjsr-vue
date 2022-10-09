@@ -5,9 +5,8 @@ import TheLayer from '@/components/TheLayer';
 
 <template>
   <div class="cookiesjsr--app">
-    <TheBanner/>
-    <TheLayer/>
-    <span v-if="layerOpen" tabIndex="0" />
+    <TheBanner v-if="bannerVisible"/>
+    <TheLayer v-if="layerOpen"/>
   </div>
 </template>
 
@@ -23,7 +22,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['openSettingsHash', 'layerOpen']),
+    ...mapGetters(['openSettingsHash', 'layerOpen', 'bannerVisible']),
   },
   created() {
     // Behavior Layer open: initial look-up for the hash, if Layer should open.

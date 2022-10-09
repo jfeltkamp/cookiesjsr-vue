@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
     <title><%= htmlWebpackPlugin.options.title %></title>
-    <link rel="stylesheet" href="/css/styles.css">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jfeltkamp/cookiesjsr@1/dist/cookiesjsr.min.css">
     <style>
       body .cookiesjsr {
           --ci-blue: #004c93;
@@ -44,6 +44,11 @@
           --switch-bg-on: #00AA00;
           --switch-width: 45px;
           --switch-height: 20px;
+      }
+      a:focus,
+      a:active {
+          color: #f00;
+          box-shadow: 0 0 0 3px #f00 !important;
       }
     </style>
 

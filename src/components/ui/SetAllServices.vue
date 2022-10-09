@@ -5,12 +5,14 @@ import BaseButton from "@/components/ui/BaseButton";
 <template>
   <BaseButton
       :clicked="() => setAllSaveAndClose()"
-      :classes="classes"><slot/></BaseButton>
+      :btnType="btnType">
+    <slot/>
+  </BaseButton>
 </template>
 
 <script>
 export default {
-  props: ['classes', 'setAll'],
+  props: ['btnType', 'setAll'],
   computed: {
     services() {
       return this.$store.getters['services']
