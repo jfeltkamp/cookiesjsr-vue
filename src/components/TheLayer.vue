@@ -21,8 +21,11 @@ import ServiceGroups from "@/components/layer/ServiceGroups";
       <footer class="cookiesjsr-layer--footer">
         <div class="cookiesjsr-layer--label-all" v-trans>settingsAllServices</div>
         <div class="cookiesjsr-layer--actions">
-          <SetAllServices v-if="showDenyAll" btnType="invert denyAll" :setAll="false" v-trans>denyAll</SetAllServices>
-          <SetAllServices btnType="invert allowAll" :setAll="true" v-trans>acceptAll</SetAllServices>
+          <SetAllServices v-if="showDenyAll"
+                          btnType="invert denyAll"
+                          :setAll="false" v-trans>denyAll</SetAllServices>
+          <SetAllServices btnType="invert allowAll"
+                          :setAll="true" v-trans>acceptAll</SetAllServices>
           <SaveButton v-trans>saveSettings</SaveButton>
         </div>
       </footer>
