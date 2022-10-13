@@ -54,17 +54,6 @@ class DrupalService {
      * /
      updateJson() {
         const conf = {
-            path: {
-                baseUrl: "/",
-                scriptPath: null,
-                pathPrefix: "",
-                currentPath: "user/login",
-                currentPathIsAdmin: false,
-                isFront: true,
-                currentLanguage: "en"
-            },
-            pluralDelimiter: "\u0003",
-            suppressDeprecationErrors: true,
             cookiesjsr: {
                 config: {
                     cookie: {name: "cookiesjsr", expires: 31536000000, domain: "", sameSite: "Lax", secure: false},
@@ -73,7 +62,7 @@ class DrupalService {
                         libPath: "https://cdn.jsdelivr.net/gh/jfeltkamp/cookiesjsr@1/dist/cookiesjsr.min.js",
                         scrollLimit: 0
                     },
-                    callback: {method: "post", url: "/cookies/consent/callback.json", headers: []},
+                    callback: {method: "get", url: "/cookies/consent/callback.json", headers: []},
                     interface: {
                         openSettingsHash: "#editCookieSettings",
                         showDenyAll: true,
@@ -103,11 +92,11 @@ class DrupalService {
                             uri: "https://support.google.com/analytics/answer/6004245",
                             needConsent: true
                         }, {
-                            key: "ivw",
+                            key: "gtag",
                             type: "tracking",
-                            name: "IVW Tracking",
+                            name: "Google Tag Manager",
                             info: {format: "full_html", value: ""},
-                            uri: "https://www.ivw.eu/digital/datenschutz-0",
+                            uri: "https://www.gtag.com/digital/datenschutz-0",
                             needConsent: true
                         }],
                         weight: 10
@@ -115,11 +104,11 @@ class DrupalService {
                     social: {
                         id: "social",
                         services: [{
-                            key: "instagram",
+                            key: "facebook",
                             type: "social",
-                            name: "Instagram",
+                            name: "Facebook",
                             info: {format: "full_html", value: ""},
-                            uri: "https://help.instagram.com/196883487377501",
+                            uri: "https://help.facebook.com/196883487377501",
                             needConsent: true
                         }],
                         weight: 20
@@ -127,9 +116,9 @@ class DrupalService {
                     video: {
                         id: "video",
                         services: [{
-                            key: "video",
+                            key: "youtube",
                             type: "video",
-                            name: "Video provided by YouTube, Vimeo",
+                            name: "Video provided by YouTube",
                             info: {format: "full_html", value: ""},
                             uri: "https://policies.google.com/privacy",
                             needConsent: true
@@ -180,20 +169,12 @@ class DrupalService {
                     }
                 }
             },
-            ajaxTrustedUrl: {"form_action_p_pvdeGsVG5zNF_XLGPTvYSKCf43t8qZYSwcfZl2uzM": true},
-            user: {uid: 0, permissionsHash: "37983621aa9b3094abd523c08f6a38798d440d6c3fb9a92e29714d3adde48d25"}
         };
 
         console.log("DON'T FORGET TO COMMENT IN THE updateJson() FUNCTION.")
 
-        const url = conf.votejsr.config.api.results;
-        fetch(url, conf.votejsr.config.api.request_options)
-            .then(response => response.json())
-            .then(data => {
-                conf.votejsr.votings = data;
-                const element = document.querySelector('body > script[type="application/json"][data-drupal-selector="drupal-settings-json"]');
-                element.textContent = JSON.stringify(conf);
-            });
+        const element = document.querySelector('body > script[type="application/json"][data-drupal-selector="drupal-settings-json"]');
+        element.textContent = JSON.stringify(conf);
     }
      /*
      * END updateJson().

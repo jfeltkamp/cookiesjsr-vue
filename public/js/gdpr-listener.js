@@ -15,7 +15,7 @@ function getLabel(id, status, services) {
   var element = document.getElementById(id);
   element.innerHTML = '';
   var content = document.createElement('a');
-  var text = (status) ? 'enabled' : 'disabled';
+  var text = (status) ? 'ACTIVE' : 'disabled';
   content.setAttribute('name', id);
   content.innerHTML = id + ' ' + text;
   let options = (typeof services !== 'object')
