@@ -12,10 +12,10 @@ function attachEvent(element, options) {
 }
 
 function getLabel(id, status, services) {
-  var element = document.getElementById(id);
+  let element = document.getElementById(id);
   element.innerHTML = '';
-  var content = document.createElement('a');
-  var text = (status) ? 'ACTIVE' : 'disabled';
+  let content = document.createElement('a');
+  let text = (status) ? 'ACTIVE' : 'disabled';
   content.setAttribute('name', id);
   content.innerHTML = id + ' ' + text;
   let options = (typeof services !== 'object')
@@ -25,21 +25,21 @@ function getLabel(id, status, services) {
   element.appendChild(content)
 }
 
-var actionLinks = {
+let actionLinks = {
   enableAll: {detail: { all: true }},
   disableAll: {detail: { all: false }},
   enableAnalytic: {detail: {groups: { tracking: true }}},
   disableAnalytic: {detail: {groups: { tracking: false }}}
 }
 
-for (var id in actionLinks) {
-  var link = document.getElementById(id);
+for (let id in actionLinks) {
+  let link = document.getElementById(id);
   if (link) {
     attachEvent(link, actionLinks[id]);
   }
 }
 
-var dispatcher = {
+let dispatcher = {
   gtag: {
     activate: function() {
       getLabel('gtag', true)
@@ -76,7 +76,7 @@ var dispatcher = {
 
 
 document.addEventListener('cookiesjsrUserConsent', function(event) {
-  var services = (typeof event.detail.services === 'object') ? event.detail.services : {};
+  let services = (typeof event.detail.services === 'object') ? event.detail.services : {};
   for (let sid in services) {
     if(typeof dispatcher[sid] === 'object') {
       if(services[sid] === true && typeof dispatcher[sid].activate === 'function') {

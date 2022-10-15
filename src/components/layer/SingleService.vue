@@ -11,10 +11,10 @@ import BaseLinks from "@/components/ui/BaseLinks";
     </div>
     <div class="cookiesjsr-service--action">
       <TheSwitch v-if="service.needConsent"
-          :key="service.key"
-          :title="(services[service.key]) ? $t('allowed') : $t('denied')"
-          :activated="services[service.key]"
-          @change="(val) => setService(service.key, val)" />
+                 :key="service.key"
+                 :title="(services[service.key]) ? $t('allowed') : $t('denied')"
+                 :activated="services[service.key]"
+                 @change="(val) => setService(service.key, val)" />
       <div v-else class="cookiesjsr-service--always-on"><span v-trans>alwaysActive</span></div>
     </div>
   </li>

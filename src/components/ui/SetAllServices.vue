@@ -27,7 +27,7 @@ export default {
         }
       }
       this.$scs.setServices(services);
-      this.$store.dispatch('setAllServices', {services: services});
+      this.$store.dispatch('setAllServices', services);
       this.$store.dispatch('bannerClose');
       this.$store.dispatch('layerClose');
     }

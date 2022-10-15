@@ -40,9 +40,10 @@ export default createStore({
             state.activeGroup = payload.activeGroup;
         },
         setAllServices(state, payload) {
-            console.log('#pup payload', payload);
+            state.services = payload;
         },
         setService(state, payload) {
+            console.log('store.setService', state.services[payload.service], payload);
             state.services[payload.service] = payload.value;
         }
     },
@@ -61,7 +62,6 @@ export default createStore({
             context.commit('setService', payload)
         },
         setMultipleServices(context, payload) {
-            console.log(payload);
             for (const [key, value] of Object.entries(payload)) {
                 context.commit('setService', {
                     service: key,

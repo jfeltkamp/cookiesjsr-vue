@@ -73,7 +73,7 @@ export default {
   },
   methods: {
     setConsent(val) {
-      let services = {...this.services};
+      const services = {};
       for (let service_def of this.getGroupServices) {
         if (service_def['needConsent']) {
           services[service_def['key']] = val;

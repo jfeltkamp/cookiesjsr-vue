@@ -94,6 +94,9 @@ export default {
     }
   },
   beforeMount() {
+    // Refresh status. May be changed by cookiesjsrUserConsent event.
+    const services = this.$scs.getServicesStatus();
+    this.$store.dispatch('setAllServices', services)
     this.willRefocusOpener = !this.bannerVisible;
     document.addEventListener("keyup", this.tabCycle);
   },

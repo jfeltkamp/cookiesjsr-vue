@@ -16,8 +16,9 @@ export default {
   },
   methods: {
     saveAndClose() {
-      this.$scs.setServices(this.services);
-      this.$store.dispatch('setAllServices', {services: this.services});
+      const services = {...this.services};
+      this.$scs.setServices(services);
+      this.$store.dispatch('setAllServices', services);
       this.$store.dispatch('bannerClose');
       this.$store.dispatch('layerClose');
     }

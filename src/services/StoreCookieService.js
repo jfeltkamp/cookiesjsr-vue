@@ -189,7 +189,6 @@ class StoreCookieService {
     });
   }
 
-
   /**
    * Loads all services that require approval from the configuration and compares them with those that are already
    * stored in the cookie. If new services have been added, the updateRequired is set to true.
@@ -225,10 +224,10 @@ class StoreCookieService {
   /**
    * Returns if an update of approval from user. (see comment this.serviceActivationStatus())
    *
-   * @returns {boolean}
+   * @returns {object}
    */
   getServicesStatus() {
-    return this.servicesStatus;
+    return { ...this.servicesStatus };
   }
 }
 
