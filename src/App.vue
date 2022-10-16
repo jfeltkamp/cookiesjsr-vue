@@ -1,6 +1,7 @@
 <script setup>
 import TheBanner from '@/components/TheBanner';
 import TheLayer from '@/components/TheLayer';
+import "./styles/App.scss";
 </script>
 
 <template>

@@ -1,6 +1,5 @@
 /* eslint-disable */
 import conf from "@/services/ConfigService";
-import axios from '../axios-content';
 
 class StoreCookieService {
 
@@ -118,27 +117,26 @@ class StoreCookieService {
     const url = conf.get('config.callback.url', '');
     if (url.length) {
       const headers = conf.get('config.callback.headers', []);
-
-      if (method === 'GET') {
-        axios.get(url, {params: services}).catch(function(err) { console.log(err); });
-      } else {
-        axios({
-          method: method,
-          headers: headers,
-          data: services,
-          url,
-        }).then(function (response) {
+      const requestOptions = (method === 'GET') ? null : {
+        method: method,
+        headers: headers,
+        body: JSON.stringify(services),
+      };
+      const params = (method === 'GET') ? '?' + new URLSearchParams(services) : '';
+      fetch(url + params, requestOptions)
+        .then((response) => response.json())
+        .then((data) => {
           try {
             const options = {
               bubbles: false,
-              detail: {
-                response: response.data
-              }
-            }
-            document.dispatchEvent(new CustomEvent('cookiesjsrCallbackResponse', options))
-          } catch(err) { console.log(err); }
-        }).catch( function(err) { console.log(err); });
-      }
+              detail: data
+            };
+            document.dispatchEvent(new CustomEvent('cookiesjsrCallbackResponse', options));
+          } catch(err) { console.error('Failed to dispatch event cookiesjsrCallbackResponse', err); }
+        })
+        .catch((error) => {
+          console.error(`Error: Callback ${url} after setting cookies user consent failed.`, error);
+        });
     }
   }
 

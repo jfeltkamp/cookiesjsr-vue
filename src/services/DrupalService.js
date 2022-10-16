@@ -51,18 +51,28 @@ class DrupalService {
      * You can update the config by un-comment this code and execute function e.g. in reducer.
      * Updated code must be copy & paste from dev-tools back to the /public/index.html.
      * Then comment in again ...
-     * /
+     */
      updateJson() {
         const conf = {
             cookiesjsr: {
                 config: {
-                    cookie: {name: "cookiesjsr", expires: 31536000000, domain: "", sameSite: "Lax", secure: false},
+                    cookie: {
+                        name: "cookiesjsr",
+                        expires: 31536000000,
+                        domain: "",
+                        sameSite: "Lax",
+                        secure: false
+                    },
                     library: {
                         libBasePath: "https://cdn.jsdelivr.net/gh/jfeltkamp/cookiesjsr@1/dist",
                         libPath: "https://cdn.jsdelivr.net/gh/jfeltkamp/cookiesjsr@1/dist/cookiesjsr.min.js",
                         scrollLimit: 0
                     },
-                    callback: {method: "get", url: "/cookies/consent/callback.json", headers: []},
+                    callback: {
+                        method: "get",
+                        url: "/cookies/consent/callback.json",
+                        headers: []
+                    },
                     interface: {
                         openSettingsHash: "#editCookieSettings",
                         showDenyAll: true,
