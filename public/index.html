@@ -22,27 +22,27 @@
     </noscript>
 
     <div class="container">
-        <h1>VueJS COOKiES</h1>
+        <h1 class="display-3">VueJS COOKiES</h1>
 
-        <a href="#editCookieSettings">Open cookie settings by Hash</a>
+        <a href="#editCookieSettings" class="btn btn-outline-primary">Open cookie settings by Hash</a>
 
-        <h3>En-/disable All</h3>
-        <div class="row">
-            <div class="col-md-6 all plugin" id="all">
-                <a href="#enableAll" id="enableAll">Enable all</a><br />
-                <a href="#disableAll" id="disableAll">Disable all</a>
-            </div>
+        <h2 class="display-4">Controlls</h2>
+        <p class="lead">All</p>
+        <div class="btn-group" id="all">
+            <button type="button" class="btn btn-outline-primary" id="enableAll">Enable all</button>
+            <button type="button" class="btn btn-outline-primary" id="disableAll">Disable all</button>
+        </div>
+        <p></p>
+        <p class="lead">Groups</p>
+        <div class="btn-group" id="all">
+            <button type="button" class="btn btn-outline-primary" id="enableAnalytic">Enable group Analytic</button>
+            <button type="button" class="btn btn-outline-primary" id="disableAnalytic">Disable group Analytic</button>
         </div>
 
-        <h3>En-/Disable Groups</h3>
-        <div class="row">
-            <div class="col-md-6 analytic plugin" id="analytic">
-                <a href="#enableAnalytic" id="enableAnalytic">Enable group Analytic</a><br />
-                <a href="#disableAnalytic" id="disableAnalytic">Disable group Analytic</a>
-            </div>
-        </div>
-
-        <h3>Plugins</h3>
+        <h2 class="display-4">Services Status</h2>
+        <p class="lead">
+            This panel represents the current state of your 3-rd party services.
+        </p>
         <div class="row">
             <div class="col-md-6 analytics plugin" id="analytics"></div>
             <div class="col-md-6 gtag plugin" id="gtag"></div>

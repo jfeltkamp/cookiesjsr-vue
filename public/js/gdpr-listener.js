@@ -14,10 +14,12 @@ function attachEvent(element, options) {
 function getLabel(id, status, services) {
   let element = document.getElementById(id);
   element.innerHTML = '';
-  let content = document.createElement('a');
+  let content = document.createElement('div');
   let text = (status) ? 'ACTIVE' : 'disabled';
   content.setAttribute('name', id);
-  content.innerHTML = id + ' ' + text;
+  content.setAttribute('role', 'alert');
+  content.setAttribute('class', (status) ? 'alert alert-info' : 'alert alert-warning');
+  content.innerHTML = 'Service <b>' + id + '</b> is ' + text;
   let options = (typeof services !== 'object')
     ? {detail: {services: {}, groups: {}}} : services;
   options.detail.services[id] = !status;
