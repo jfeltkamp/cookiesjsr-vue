@@ -31,7 +31,15 @@ let actionLinks = {
   enableAll: {detail: { all: true }},
   disableAll: {detail: { all: false }},
   enableAnalytic: {detail: {groups: { tracking: true }}},
-  disableAnalytic: {detail: {groups: { tracking: false }}}
+  disableAnalytic: {detail: {groups: { tracking: false }}},
+  enableFacebook: {detail: {services: { facebook: true }}},
+  disableFacebook: {detail: {services: { facebook: false }}},
+  enableYoutube: {detail: {services: { youtube: true }}},
+  disableYoutube: {detail: {services: { youtube: false }}},
+  enableAnalytics: {detail: {services: { analytics: true }}},
+  disableAnalytics: {detail: {services: { analytics: false }}},
+  enableGtag: {detail: {services: { gtag: true }}},
+  disableGtag: {detail: {services: { gtag: false }}}
 }
 
 for (let id in actionLinks) {

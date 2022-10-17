@@ -7,13 +7,6 @@
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
     <title><%= htmlWebpackPlugin.options.title %></title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <style>
-      a:focus,
-      a:active {
-          color: #f00;
-          box-shadow: 0 0 0 3px #f00 !important;
-      }
-    </style>
 
   </head>
   <body>
@@ -24,19 +17,62 @@
     <div class="container">
         <h1 class="display-3">VueJS COOKiES</h1>
 
-        <a href="#editCookieSettings" class="btn btn-outline-primary">Open cookie settings by Hash</a>
-
-        <h2 class="display-4">Controlls</h2>
-        <p class="lead">All</p>
-        <div class="btn-group" id="all">
-            <button type="button" class="btn btn-outline-primary" id="enableAll">Enable all</button>
-            <button type="button" class="btn btn-outline-primary" id="disableAll">Disable all</button>
+        <div class="my-5">
+            <a href="#editCookieSettings" class="btn btn-primary">Open cookie settings by Hash</a>
         </div>
-        <p></p>
-        <p class="lead">Groups</p>
-        <div class="btn-group" id="all">
-            <button type="button" class="btn btn-outline-primary" id="enableAnalytic">Enable group Analytic</button>
-            <button type="button" class="btn btn-outline-primary" id="disableAnalytic">Disable group Analytic</button>
+
+        <div class="my-5">
+            <h2 class="display-4">Controlls</h2>
+            <p class="lead">Users can edit the COOKiES consent settings from outside the UI. This is useful when a
+                content element is not displayed because consent has not given yet.</p>
+            <div class="btn-group btn-group-lg" id="all">
+                <button type="button" class="btn btn-outline-primary" disabled>ALL</button>
+                <button type="button" class="btn btn-info" id="enableAll">ON</button>
+                <button type="button" class="btn btn-warning" id="disableAll">OFF</button>
+            </div>
+        </div>
+
+        <div class="my-5">
+            <p class="lead">Groups</p>
+            <div class="btn-group" id="all">
+                <button type="button" class="btn btn-outline-primary" disabled>Group Tracking</button>
+                <button type="button" class="btn btn-info" id="enableAnalytic">ON</button>
+                <button type="button" class="btn btn-warning" id="disableAnalytic">OFF</button>
+            </div>
+        </div>
+
+        <div class="my-5">
+            <p class="lead">Single services</p>
+            <div class="row">
+                <div class="col-lg-3 col-sm-6">
+                    <div class="btn-group btn-group-sm" id="all">
+                        <button type="button" class="btn btn-outline-primary" disabled>Analytics</button>
+                        <button type="button" class="btn btn-info" id="enableAnalytics">ON</button>
+                        <button type="button" class="btn btn-warning" id="disableAnalytics">OFF</button>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6">
+                    <div class="btn-group btn-group-sm" id="all">
+                        <button type="button" class="btn btn-outline-primary" disabled>GoogleTag</button>
+                        <button type="button" class="btn btn-info" id="enableGtag">ON</button>
+                        <button type="button" class="btn btn-warning" id="disableGtag">OFF</button>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6">
+                    <div class="btn-group btn-group-sm" id="all">
+                        <button type="button" class="btn btn-outline-primary" disabled>Facebook</button>
+                        <button type="button" class="btn btn-info" id="enableFacebook">ON</button>
+                        <button type="button" class="btn btn-warning" id="disableFacebook">OFF</button>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6">
+                    <div class="btn-group btn-group-sm" id="all">
+                        <button type="button" class="btn btn-outline-primary" disabled>Youtube</button>
+                        <button type="button" class="btn btn-info" id="enableYoutube">ON</button>
+                        <button type="button" class="btn btn-warning" id="disableYoutube">OFF</button>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <h2 class="display-4">Services Status</h2>
