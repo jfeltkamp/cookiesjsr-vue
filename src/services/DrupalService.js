@@ -18,11 +18,10 @@ class DrupalService {
             this.drupalSettings = (element !== null) ? JSON.parse(element.textContent) : {}
         }
 
-        this.once = (typeof window.once === 'function') ?
-            window.once :
-            (id, selector, context) => {
+        this.once = (typeof window.once === 'function') ? window.once
+            : (id, selector, context) => {
                 return context.querySelectorAll(selector);
-            };
+              };
     }
 
     getSimulated() {
@@ -37,7 +36,7 @@ class DrupalService {
         if (typeof this.drupalSettings[section] !== 'undefined') {
             return this.drupalSettings[section];
         } else {
-            return {}
+            return this.drupalSettings;
         }
     }
 
@@ -51,7 +50,7 @@ class DrupalService {
      * You can update the config by un-comment this code and execute function e.g. in reducer.
      * Updated code must be copy & paste from dev-tools back to the /public/index.html.
      * Then comment in again ...
-     */
+     * /
      updateJson() {
         const conf = {
             cookiesjsr: {

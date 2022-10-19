@@ -93,6 +93,12 @@ export default {
       }
     }
   },
+  mounted() {
+    let activeElement = this.$refs.dialog.querySelector('.dialog-first-tab')
+    if (activeElement) {
+      activeElement.focus()
+    }
+  },
   beforeMount() {
     // Refresh status. May be changed by cookiesjsrUserConsent event.
     const services = this.$scs.getServicesStatus();

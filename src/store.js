@@ -35,7 +35,10 @@ export default createStore({
     },
     mutations: {
         bannerToggle(state, payload) { state.bannerVisible = payload.open },
-        layerToggle(state, payload) { state.layerOpen = payload.open },
+        layerToggle(state, payload) {
+            state.layerOpen = payload.open;
+            state.activeGroup = 'default';
+        },
         setActiveGroup(state, payload) {
             state.activeGroup = payload.activeGroup;
         },
@@ -53,20 +56,20 @@ export default createStore({
         bannerOpen(context) {context.commit('bannerToggle', {open: true})},
         bannerClose(context) {context.commit('bannerToggle', {open: false})},
         setAllServices(context, payload) {
-            context.commit('setAllServices', payload)
+            context.commit('setAllServices', payload);
         },
         setActiveGroup(context, payload) {
-            context.commit('setActiveGroup', payload)
+            context.commit('setActiveGroup', payload);
         },
         setService(context, payload) {
-            context.commit('setService', payload)
+            context.commit('setService', payload);
         },
         setMultipleServices(context, payload) {
             for (const [key, value] of Object.entries(payload)) {
                 context.commit('setService', {
                     service: key,
                     value: value
-                })
+                });
             }
         }
     }
