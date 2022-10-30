@@ -46,7 +46,6 @@ export default createStore({
             state.services = payload;
         },
         setService(state, payload) {
-            console.log('store.setService', state.services[payload.service], payload);
             state.services[payload.service] = payload.value;
         }
     },

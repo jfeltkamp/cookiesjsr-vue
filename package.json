@@ -1,15 +1,20 @@
 {
-  "name": "cookiesjsr-vue-app",
-  "version": "0.1.0",
+  "name": "cookiesjsr-vue",
+  "description": "COOKiES is a consent management tool and provides UI and API to manage 3rd party services within the GDPR.",
+  "version": "1.0.0",
+  "author": "Joachim Feltkamp <j.feltkamp@gmail.com>",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "build": "vue-cli-service build && node lib-builder.js",
+    "libbuild": "node lib-builder.js",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
     "@babel/eslint-parser": "^7.19.1",
+    "buildify": "^0.4.0",
     "core-js": "^3.6.5",
+    "ncp": "^2.0.0",
     "sass": "^1.54.9",
     "vue": "^3.0.0",
     "vuex": "^4.0.2"
@@ -22,6 +27,7 @@
     "eslint": "^8.23.1",
     "eslint-plugin-vue": "^9.5.1",
     "fibers": "^5.0.3",
-    "sass-loader": "^13.0.2"
+    "sass-loader": "^13.0.2",
+    "webpack-assets-manifest": "^5.1.0"
   }
 }

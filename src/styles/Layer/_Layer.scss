@@ -113,7 +113,7 @@
   &--actions {
     display: flex;
     align-items: center;
-    margin: 0 -$default-margin-half;
+    margin: 0 -#{$default-margin-half};
     width: calc(100% + #{$default-margin});
     @media (min-width: $md) {
       width: calc(70% + #{$default-margin-half});
