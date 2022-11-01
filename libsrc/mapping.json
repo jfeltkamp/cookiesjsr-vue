@@ -2,16 +2,8 @@
   "maps": {
     "copy": [
       {
-        "src": "./public/LICENSE.txt",
-        "dest": "./lib/LICENSE.txt"
-      },
-      {
         "src": "./README.md",
-        "dest": "./lib/README.md"
-      },
-      {
-        "src": "./libsrc/composer.json",
-        "dest": "./lib/composer.json"
+        "dest": "./dist/README.md"
       }
     ]
   }

@@ -1,0 +1,19 @@
+{
+    "name": "jfeltkamp/cookiesjsr-vue",
+    "type": "drupal-library",
+    "description": "COOKiES JSR (Vue) is a consent management tool and provides UI and API to manage 3rd party services within the GDPR.",
+    "license": "CC BY-ND",
+    "authors": [
+      {
+        "name": "Joachim Feltkamp",
+        "homepage": "https://www.drupal.org/u/jfeltkamp"
+      }
+    ],
+    "keywords": ["cookie compliance", "data privacy", "data protection", "third party", "personal data", "compliance tool", "personal information", "cookies", "user", "consent", "LGPD", "GDPR", "DSGVO", "CCPA", "EU", "Europe", "legal", "onetrust", "open source"],
+    "homepage": "https://github.com/jfeltkamp/cookiesjsr-vue",
+    "minimum-stability": "dev",
+    "support": {
+        "issues": "https://github.com/jfeltkamp/cookiesjsr-vue/issues",
+        "source": "https://github.com/jfeltkamp/cookiesjsr-vue"
+    }
+}

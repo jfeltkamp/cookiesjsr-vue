@@ -1,9 +1,42 @@
 {
   "name": "cookiesjsr-vue",
-  "description": "COOKiES is a consent management tool and provides UI and API to manage 3rd party services within the GDPR.",
+  "description": "COOKiES JSR (Vue) is a consent management tool and provides UI and API to manage 3rd party services within the GDPR.",
   "version": "1.0.0",
-  "author": "Joachim Feltkamp <j.feltkamp@gmail.com>",
-  "private": true,
+  "author": {
+    "name" : "Joachim Feltkamp",
+    "url" : "https://www.drupal.org/u/jfeltkamp",
+    "city" : "Hamburg, Germany"
+  },
+  "license": "CC BY-ND",
+  "licenseFullName": "Creative Commons Attribution-NoDerivs 3.0 Germany License",
+  "licenseUrl": "https://creativecommons.org/licenses/by-nd/3.0/de/",
+  "repository": "jfeltkamp/cookiesjsr-vue",
+  "homepage": "https://github.com/jfeltkamp/cookiesjsr-vue",
+  "bugs": {
+    "url" : "https://github.com/jfeltkamp/cookiesjsr-vue/issues"
+  },
+  "keywords": [
+    "cookie compliance",
+    "data privacy",
+    "data protection",
+    "third party",
+    "personal data",
+    "compliance tool",
+    "personal information",
+    "cookies",
+    "user",
+    "consent",
+    "LGPD",
+    "GDPR",
+    "DSGVO",
+    "CCPA",
+    "EU",
+    "Europe",
+    "legal",
+    "onetrust",
+    "open source"
+  ],
+  "private": false,
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build && node lib-builder.js",

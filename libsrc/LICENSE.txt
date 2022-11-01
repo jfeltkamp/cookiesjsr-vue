@@ -1,16 +1,3 @@
-/** @license CookieJSR v1.0.10
- * cookiejsr.min.js
- * cookiejsr.min.css
- *
- * Copyright (c) Joachim Feltkamp, Hamburg, Germany.
- *
- * This source code is licensed under the CC BY-ND license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-Source code is licensed under the CC BY-ND license.
-Creative Commons Attribution-NoDerivs 3.0 Germany License.
-https://creativecommons.org/licenses/by-nd/3.0/de/
 
 You are free to:
 

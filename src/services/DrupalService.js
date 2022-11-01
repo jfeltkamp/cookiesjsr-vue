@@ -63,8 +63,8 @@ class DrupalService {
                         secure: false
                     },
                     library: {
-                        libBasePath: "https://cdn.jsdelivr.net/gh/jfeltkamp/cookiesjsr@1/dist",
-                        libPath: "https://cdn.jsdelivr.net/gh/jfeltkamp/cookiesjsr@1/dist/cookiesjsr.min.js",
+                        libBasePath: "",
+                        libPath: "",
                         scrollLimit: 0
                     },
                     callback: {
@@ -86,7 +86,7 @@ class DrupalService {
                     default: {
                         id: "default", services: [{
                             key: "base", type: "default", name: "Required cookies", info: {
-                                value: "<table>\r\n\t<thead>\r\n\t\t<tr>\r\n\t\t\t<th width=\"15%\">Cookie name</th>\r\n\t\t\t<th width=\"15%\">Default expiration time</th>\r\n\t\t\t<th>Description</th>\r\n\t\t</tr>\r\n\t</thead>\r\n\t<tbody>\r\n\t\t<tr>\r\n\t\t\t<td><code dir=\"ltr\" translate=\"no\">SSESS&lt;ID&gt;</code></td>\r\n\t\t\t<td>1 month</td>\r\n\t\t\t<td>If you are logged in to this website, a session cookie is required to identify and connect your browser to your user account in the server backend of this website.</td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td><code dir=\"ltr\" translate=\"no\">cookiesjsr</code></td>\r\n\t\t\t<td>1 year</td>\r\n\t\t\t<td>When you visited this website for the first time, you were asked for your permission to use several services (including those from third parties) that require data to be saved in your browser (cookies, local storage). Your decisions about each service (allow, deny) are stored in this cookie and are reused each time you visit this website.</td>\r\n\t\t</tr>\r\n\t</tbody>\r\n</table>\r\n",
+                                value: "<table><thead><tr><th width=\"15%\">Cookie name</th><th width=\"15%\">Default expiration time</th><th>Description</th></tr></thead><tbody><tr><td><code dir=\"ltr\" translate=\"no\">SSESS&lt;ID&gt;</code></td><td>1 month</td><td>If you are logged in to this website, a session cookie is required to identify and connect your browser to your user account in the server backend of this website.</td></tr><tr><td><code dir=\"ltr\" translate=\"no\">cookiesjsr</code></td><td>1 year</td><td>When you visited this website for the first time, you were asked for your permission to use several services (including those from third parties) that require data to be saved in your browser (cookies, local storage). Your decisions about each service (allow, deny) are stored in this cookie and are reused each time you visit this website.</td></tr></tbody></table>",
                                 format: "full_html"
                             }, uri: "", needConsent: false
                         }], weight: 1
@@ -135,7 +135,6 @@ class DrupalService {
                         weight: 40
                     }
                 }, translation: {
-                    _core: {default_config_hash: "r0JMDv27tTPrhzD4ypdLS0Jijl0-ccTUdlBkqvbAa8A"},
                     langcode: "en",
                     default_langcode: "en",
                     bannerText: "We use a selection of our own and third-party cookies on the pages of this website: Essential cookies, which are required in order to use the website; functional cookies, which provide better easy of use when using the website; performance cookies, which we use to generate aggregated data on website use and statistics; and marketing cookies, which are used to display relevant content and advertising. If you choose \"ACCEPT ALL\", you consent to the use of all cookies. You can accept and reject individual cookie types and  revoke your consent for the future at any time under \"Settings\".",
