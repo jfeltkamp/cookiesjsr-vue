@@ -31,7 +31,6 @@ to save his decisions (also in a cookie) and provides an event as entry point fo
 
 <!-- The Place where cookiesjsr can live in. -->
 <div id="cookiesjsr"></div>
-<script src="/path/to/your/cookiesjsr-init.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/jfeltkamp/cookiesjsr@1/dist/cookiesjsr.min.js"></script>
 </body>
 </html>
