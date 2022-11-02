@@ -1,5 +1,5 @@
 /* eslint-disable */
-import conf from "@/services/ConfigService";
+import conf from "./ConfigService";
 
 class StoreCookieService {
 

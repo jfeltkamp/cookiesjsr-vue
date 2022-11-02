@@ -1,5 +1,5 @@
 /* eslint-disable */
-import { drupalSettings } from "@/services/DrupalService";
+import { drupalSettings } from "./DrupalService";
 
 class ConfigService {
   // Set initial configuration
@@ -27,7 +27,8 @@ class ConfigService {
    *   If requested config AND fallback IS defined, data types of both must be equal
    *   => if EQUAL method returns requested config, if NOT EQUAL returns fallback.
    */
-  get = (name, fallback = null) => {
+  get(name, fallback = null) {
+    console.log('get', name, fallback);
     if (name === '') {
       return this.config;
     }
@@ -43,6 +44,7 @@ class ConfigService {
         let frag = this.resolve(name);
         returnValue = (typeof frag !== 'undefined') ? frag : fallback;
     }
+    console.log('get return', returnValue);
     return (
         (fallback === null) ||
         (returnValue === fallback) ||
@@ -59,7 +61,7 @@ class ConfigService {
    * @returns {*}
    *   Resolved content of string query.
    */
-  resolve = (path, separator='.') => {
+  resolve(path, separator='.') {
     // console.log('#ConfigService::resolve', path)
     let properties = path.split(separator);
     return properties.reduce((prev, curr) => prev && prev[curr], this.config)
