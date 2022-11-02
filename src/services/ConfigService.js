@@ -28,7 +28,6 @@ class ConfigService {
    *   => if EQUAL method returns requested config, if NOT EQUAL returns fallback.
    */
   get(name, fallback = null) {
-    console.log('get', name, fallback);
     if (name === '') {
       return this.config;
     }
@@ -44,7 +43,6 @@ class ConfigService {
         let frag = this.resolve(name);
         returnValue = (typeof frag !== 'undefined') ? frag : fallback;
     }
-    console.log('get return', returnValue);
     return (
         (fallback === null) ||
         (returnValue === fallback) ||

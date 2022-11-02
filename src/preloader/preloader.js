@@ -27,7 +27,7 @@ export default class preloader {
           }
           window.removeEventListener('scroll', load);
         }
-      }, 100)
+      }, 100);
       window.addEventListener('scroll', load);
     }
   }
@@ -39,10 +39,10 @@ export default class preloader {
     const self = this;
     let hashListener = function() {
       if (self.hashCheck()) {
-        self.loadApp()
-        window.removeEventListener('scroll', hashListener)
+        self.loadApp();
+        window.removeEventListener('scroll', hashListener);
       }
-    }
+    };
     window.addEventListener("hashchange", hashListener);
     // Initial check.
     hashListener();
@@ -62,7 +62,7 @@ export default class preloader {
    * @returns {boolean}
    */
   loadApp() {
-    const libPath = config.get('config.library.libPath', false)
+    const libPath = config.get('config.library.libPath', '');
     if (!this.appLoaded && libPath) {
       let script = document.createElement("script");
       script.type = "text/javascript";

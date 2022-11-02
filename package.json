@@ -39,8 +39,9 @@
   "private": false,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build && node lib-builder.js",
+    "build": "vue-cli-service build && npm run libbuild && npm run wp",
     "libbuild": "node lib-builder.js",
+    "wp": "webpack",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {

@@ -8,6 +8,7 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     filename: 'cookiesjsr-preloader.min.js'
   },
+  // devtool: 'source-map',
   module: {
     rules: [
       {
@@ -21,6 +22,5 @@ module.exports = {
         }
       }
     ]
-  },
-  devtool: 'source-map'
+  }
 };

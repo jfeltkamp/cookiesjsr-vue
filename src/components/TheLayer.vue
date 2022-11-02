@@ -6,14 +6,14 @@ import ServiceGroups from "@/components/layer/ServiceGroups";
 
 <template>
   <div ref="dialog" class="cookiesjsr-layer--wrapper">
-    <div class="cookiesjsr-layer--overlay" :title="$t('close')" @click.prevent="() => this.closeLayer()" />
+    <div class="cookiesjsr-layer--overlay" :title="$t('close')" @click.prevent="() => closeLayer()" />
     <div class="cookiesjsr-layer">
       <header class="cookiesjsr-layer--header">
         <span class="cookiesjsr-layer--title" v-trans>cookieSettings</span>
         <button type="button"
                 class="cookiesjsr-layer--close dialog-first-tab"
                 :title="$t('close')"
-                @click.prevent="() => this.closeLayerDeny()" v-trans>close</button>
+                @click.prevent="() => closeLayerDeny()" v-trans>close</button>
       </header>
       <div class="cookiesjsr-layer--body">
         <ServiceGroups/>
